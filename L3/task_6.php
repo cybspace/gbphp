@@ -21,48 +21,48 @@
 					'Рязанская область' => ['Кораблино', 'Ряжск', 'Скопин']
 				];
 			
-				function makeSmartListFunc ($arr) {
+				function make_smart_list_func ($arr) {
 					$list = '<ul>';
 					
-					function makeSimpleListFunc ($array, $list) {
+					function make_simple_list_func ($array, $list) {
 						$output = $list;
 						foreach ($array as $key => $value) {
 							if (is_string($key)) {
-								$output .= makeLiElement($key);
+								$output .= make_li_element($key);
 								
 								if(is_array($value)) {
 									$output .= '<ul>';
-									$output .= makeInnerListFunc($value);
+									$output .= make_inner_list_func($value);
 									$output .= '</ul>';
 								} else {
 									$output .= '<ul>';
-									$output .= makeLiElement($value);
+									$output .= make_li_element($value);
 									$output .= '</ul>';
 								};								
 							} else {
-								$output .= makeLiElement($value);
+								$output .= make_li_element($value);
 							};
 						};
 						
 						return $output;
 					};
 					
-					function makeInnerListFunc ($array) {
+					function make_inner_list_func ($array) {
 						$output = '';
-						$output = makeSimpleListFunc($array, $output);
+						$output = make_simple_list_func($array, $output);
 						return $output;
 					};
 					
-					function makeLiElement ($text) {
+					function make_li_element ($text) {
 						return '<li>' . $text . '</li>';
 					};
 					
-					$list = makeSimpleListFunc($arr, $list);			
+					$list = make_simple_list_func($arr, $list);			
 					$list .= '</ul>';
 					return $list;
 				};
 			
-			echo makeSmartListFunc($districtArr);
+			echo make_smart_list_func($districtArr);
 				
 			?>
 		</p>
