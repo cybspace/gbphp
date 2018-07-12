@@ -1,7 +1,5 @@
 <?php
-	include "menu.php";
-	include_once __DIR__ . '/../config/main.php';
-	include_once $PRIVATE_DIR . 'render.php';
+	include 'dependencies.php';
 
 	$header = 'Задание 3';
 	$task = 'Написать функцию, отображающую все дерево файлов и каталогов, начиная от указанной директории.';

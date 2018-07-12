@@ -4,7 +4,7 @@
 *************************/
 
 //DIRECTORIES
-    $ROOT_DIR = $_SERVER[DOCUMENT_ROOT] . '/L4/';
+    $ROOT_DIR = $_SERVER['DOCUMENT_ROOT'] . '/L5/';
     $CONFIG_DIR = $ROOT_DIR . 'config/';
     $UPLOADS_DIR = $ROOT_DIR . 'uploads/';
     $PRIVATE_DIR = $ROOT_DIR . 'private/';

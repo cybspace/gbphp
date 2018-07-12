@@ -1,5 +1,5 @@
 <?php
-	include "menu.php";
+	include 'dependencies.php';
 	
 	$header = 'Задание 6';
 	$task = '';
