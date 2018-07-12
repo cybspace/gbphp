@@ -1,5 +1,5 @@
 <?php
-    include 'dependencies.php';
+    include_once 'dependencies.php';
 
     $header = 'Задание 5';
     $task = '';

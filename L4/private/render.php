@@ -130,7 +130,7 @@ function make_smart_list_func ($arr) {
   return $list;
 };
 
-function delete_dir ($dir_path, $view_only = true) {
+function do_delete_dir ($dir_path, $view_only = true) {
 
   function clear_dir ($dir_path, $view_only) {
       $useless_path = ['.', '..'];

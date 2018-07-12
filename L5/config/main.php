@@ -11,9 +11,18 @@
     $TEMPLATES_DIR = $ROOT_DIR . 'templates/';
     $WWWROOT_DIR = $ROOT_DIR . 'wwwroot/';
 
-//OTHER
+//IMAGE PROPERTIES
     $IMG_MAX_SIZE = 1000000; //in bytes
     $IMG_THUMBNAILS_WIDTH = 150; //in px
     $IMG_VALID_EXTENSIONS = ['jpg', 'png', 'jpeg'];
+
+//DB_PROPERTIES
+    $CONNECTION_PARAMS = [
+        'host' => '127.0.0.1',
+        'user' => 'root',
+        'passw' => '1q2we34r',
+        'db' => 'gbphp_db'
+    ];
+    $CURRENT_CONNECTION = null;
 
 ?>

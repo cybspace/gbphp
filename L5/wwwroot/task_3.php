@@ -1,5 +1,5 @@
 <?php
-	include 'dependencies.php';
+	include_once 'dependencies.php';
 
 	$header = 'Задание 3';
 	$task = 'Написать функцию, отображающую все дерево файлов и каталогов, начиная от указанной директории.';

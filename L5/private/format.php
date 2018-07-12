@@ -1,4 +1,21 @@
 <?php
+  include_once __DIR__ . '/../config/main.php';
+  include_once 'dependencies.php';
+
+function make_file_props_arr (
+    $filename, 
+    $file_url, 
+    $file_thumbnail_url = null, 
+    $file_alt_url = null
+    ) {
+        return [
+            'filename' => $filename,
+            'url' => $file_url,
+            'thumbnail_url' => $file_thumbnail_url,
+            'alt_url' => $file_alt_url
+        ];
+
+};
 
 function make_dir_arr ($dir) {
   $out_arr = [];

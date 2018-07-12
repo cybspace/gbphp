@@ -1,5 +1,5 @@
 <?php
-	include 'dependencies.php';
+	include_once 'dependencies.php';
 	
 	$header = 'Задание 4';
 	$task = 'Написать функцию, удаляющуюю указанную папку(с ее полным очищением)';
@@ -17,7 +17,7 @@
 			<?php
 				
                 echo make_smart_list_func(make_dir_arr($ROOT_DIR.'testfolder/'));
-                delete_dir($ROOT_DIR.'testfolder/', true);
+                do_delete_dir($ROOT_DIR.'testfolder/', true);
 			?>
 		</p>
 		
