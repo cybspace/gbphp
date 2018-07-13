@@ -1,6 +1,3 @@
-<?=$gallery?>
 <div class="gallery">
-    <?php
-    
-    ?>
+    <?=$gallery?>
 </div>

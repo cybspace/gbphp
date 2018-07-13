@@ -67,6 +67,8 @@ function get_file_extension ($file_name) {
 };
 
 function do_load_image ($form_name) {
+    global $IMG_THUMBNAILS_WIDTH;
+    global $WWWROOT_DIR;
     $file = $_FILES[$form_name];
     $message = '';
     $gallery = false;

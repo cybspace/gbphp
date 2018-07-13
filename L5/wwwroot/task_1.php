@@ -22,6 +22,7 @@
 				$load_inst = do_load_image('image');
 				$message = $load_inst['message'];
 				$gallery = $load_inst['gallery'];
+				var_dump($gallery);
 			};
 
 			include $TEMPLATES_DIR . 'upload_form.php';

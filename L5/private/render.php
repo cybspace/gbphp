@@ -56,6 +56,7 @@ function render_images_from_folder ($img_thumbnails_path, $img_originals_path) {
   global $WWWROOT_DIR;
   $output = '';
   $img_thumbnails_arr = make_dir_arr($WWWROOT_DIR.$img_thumbnails_path);
+  var_dump($img_thumbnails_arr);
 
   foreach ($img_thumbnails_arr as $k => $v) {
     if (!is_array($v)) {
