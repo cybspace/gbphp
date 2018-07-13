@@ -69,9 +69,11 @@ function get_file_extension ($file_name) {
 function do_load_image ($form_name) {
     global $IMG_THUMBNAILS_WIDTH;
     global $WWWROOT_DIR;
+
     $file = $_FILES[$form_name];
     $message = '';
     $gallery = false;
+    $image = false;
     if (isset($file)) {
         $warning_message = get_image_warning_message();
         $file_name = $file['name'];
@@ -86,17 +88,20 @@ function do_load_image ($form_name) {
             $is_uploaded = move_uploaded_file($file_tmp_name, $src);
             $is_resized = img_resize($src, $dest, $IMG_THUMBNAILS_WIDTH, $IMG_THUMBNAILS_WIDTH);
             $message =  $is_uploaded && $is_resized ? 'Загрузка прошла успешно!' : 'Загрузка не удалась!';
-            $gallery = render_images_from_folder('resources/img/small/', 'resources/img/');
-            $image = render_images_by_path($img_thumbnail_path, $img_original_path);
+            //$image = render_images_by_path($img_thumbnail_path, $img_original_path);
         } else {
             $message = "Загрузка не удалась: недопустимый формат или размер!<br>" . $warning_message;
         };
 
-    };
+        $gallery = render_images_from_folder('resources/img/small/', 'resources/img/');
 
-    return [
+    };
+    
+    $result = [
         'message' => $message,
         'image' => $image,
         'gallery' => $gallery
     ];
+
+    return $result;
 };
