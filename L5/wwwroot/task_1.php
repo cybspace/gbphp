@@ -18,9 +18,10 @@
 		<?php
 			$message = get_image_init_message();
 			$gallery = render_images_from_folder('resources/img/small/', 'resources/img/');
+			$img_array = get_dir_content($IMAGES_DIR, true);
 
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-				$load_inst = do_load_image('image');
+				$load_inst = do_save_image('image');
 				$message = $load_inst['message'];
 				$gallery = $load_inst['gallery'];
 			};

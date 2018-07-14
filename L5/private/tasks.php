@@ -66,14 +66,30 @@ function get_file_extension ($file_name) {
     return substr($file_name, strripos($file_name, '.') + 1);
 };
 
-function do_load_image ($form_name) {
+
+function get_dir_content ($dir, $only_files = false) {
+    $out_arr = [];
+    $useless_path = ['.', '..'];
+  
+    foreach (scandir($dir) as $k => $v) {
+      if (!in_array($v, $useless_path)) {
+        if (is_dir($dir.$v.'/') && !$only_files) {
+          $out_arr[$v] = get_dir_content($dir.$v.'/');
+        } else if (!is_dir($dir.$v.'/')) {
+          array_push($out_arr, $v);
+        };
+      };
+    };
+    return $out_arr;
+  };
+
+function do_save_image ($form_name) {
     global $IMG_THUMBNAILS_WIDTH;
     global $WWWROOT_DIR;
 
     $file = $_FILES[$form_name];
-    $message = '';
-    $gallery = false;
-    $image = false;
+    $message = null;
+
     if (isset($file)) {
         $warning_message = get_image_warning_message();
         $file_name = $file['name'];
@@ -85,23 +101,18 @@ function do_load_image ($form_name) {
             $img_thumbnail_path = 'resources/img/small/' . $file_name;
             $src = $WWWROOT_DIR . $img_original_path;
             $dest = $WWWROOT_DIR . $img_thumbnail_path;
+
+            $file_props = make_file_props_arr($file_name, $img_original_path, $img_thumbnail_path);
             $is_uploaded = move_uploaded_file($file_tmp_name, $src);
             $is_resized = img_resize($src, $dest, $IMG_THUMBNAILS_WIDTH, $IMG_THUMBNAILS_WIDTH);
-            $message =  $is_uploaded && $is_resized ? 'Загрузка прошла успешно!' : 'Загрузка не удалась!';
-            //$image = render_images_by_path($img_thumbnail_path, $img_original_path);
+            $is_saved = insert_file_props_into_db($file_props);
+
+            $message =  $is_uploaded && $is_resized && $is_saved ? 'Загрузка прошла успешно!' : 'Загрузка не удалась!';
         } else {
             $message = "Загрузка не удалась: недопустимый формат или размер!<br>" . $warning_message;
         };
 
-        $gallery = render_images_from_folder('resources/img/small/', 'resources/img/');
-
     };
-    
-    $result = [
-        'message' => $message,
-        'image' => $image,
-        'gallery' => $gallery
-    ];
 
-    return $result;
+    return $message;
 };

@@ -55,7 +55,7 @@ function img_resize($src, $dest, $width, $height, $rgb = 0xFFFFFF, $quality = 10
 function render_images_from_folder ($img_thumbnails_path, $img_originals_path) {
   global $WWWROOT_DIR;
   $output = '';
-  $img_thumbnails_arr = make_dir_arr($WWWROOT_DIR.$img_thumbnails_path);
+  $img_thumbnails_arr = get_dir_content($WWWROOT_DIR.$img_thumbnails_path);
 
   foreach ($img_thumbnails_arr as $k => $v) {
     if (!is_array($v)) {

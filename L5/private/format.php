@@ -3,35 +3,18 @@
   include_once 'dependencies.php';
 
 function make_file_props_arr (
-    $filename, 
+    $file_name, 
     $file_url, 
     $file_thumbnail_url = null, 
     $file_alt_url = null
     ) {
         return [
-            'filename' => $filename,
+            'file_name' => $file_name,
             'url' => $file_url,
             'thumbnail_url' => $file_thumbnail_url,
             'alt_url' => $file_alt_url
         ];
 
-};
-
-function make_dir_arr ($dir) {
-  $out_arr = [];
-  $useless_path = ['.', '..'];
-
-  foreach (scandir($dir) as $k => $v) {
-    if (!in_array($v, $useless_path)) {
-      if (is_dir($dir.$v.'/')) {
-        $out_arr[$v] = make_dir_arr($dir.$v.'/');
-      } else {
-        array_push($out_arr, $v);
-      };
-    };
-  };
-  
-  return $out_arr;
 };
 
 function make_smart_list_func ($arr) {

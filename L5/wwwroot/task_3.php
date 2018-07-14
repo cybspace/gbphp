@@ -16,7 +16,7 @@
 		<p>
 			<?php
 			
-				echo make_smart_list_func(make_dir_arr($ROOT_DIR));
+				echo make_smart_list_func(get_dir_content($ROOT_DIR));
 
 			?>
 		</p>

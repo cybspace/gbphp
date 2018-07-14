@@ -71,14 +71,14 @@ function verify_image ($name, $size) {
   return true;
 };
 
-function make_dir_arr ($dir) {
+function get_dir_content ($dir) {
   $out_arr = [];
   $useless_path = ['.', '..'];
 
   foreach (scandir($dir) as $k => $v) {
     if (!in_array($v, $useless_path)) {
       if (is_dir($dir.$v.'/')) {
-        $out_arr[$v] = make_dir_arr($dir.$v.'/');
+        $out_arr[$v] = get_dir_content($dir.$v.'/');
       } else {
         array_push($out_arr, $v);
       };
@@ -192,7 +192,7 @@ function format_num_by_bytes ($num) {
 function render_images_from_folder ($img_thumbnails_path, $img_originals_path) {
   global $WWWROOT_DIR;
   $output = '';
-  $img_thumbnails_arr = make_dir_arr($WWWROOT_DIR.$img_thumbnails_path);
+  $img_thumbnails_arr = get_dir_content($WWWROOT_DIR.$img_thumbnails_path);
 
   foreach ($img_thumbnails_arr as $k => $v) {
     if (!is_array($v)) {

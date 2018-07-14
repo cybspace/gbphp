@@ -10,6 +10,7 @@
     $PRIVATE_DIR = $ROOT_DIR . 'private/';
     $TEMPLATES_DIR = $ROOT_DIR . 'templates/';
     $WWWROOT_DIR = $ROOT_DIR . 'wwwroot/';
+    $IMAGES_DIR = $WWWROOT_DIR . 'resources/img/';
 
 //IMAGE PROPERTIES
     $IMG_MAX_SIZE = 1000000; //in bytes
@@ -24,5 +25,8 @@
         'db' => 'gbphp_db'
     ];
     $CURRENT_CONNECTION = null;
+
+//DB TABLES
+    
 
 ?>

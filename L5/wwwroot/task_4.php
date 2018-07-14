@@ -16,7 +16,7 @@
 		<p>
 			<?php
 				
-                echo make_smart_list_func(make_dir_arr($ROOT_DIR.'testfolder/'));
+                echo make_smart_list_func(get_dir_content($ROOT_DIR.'testfolder/'));
                 do_delete_dir($ROOT_DIR.'testfolder/', true);
 			?>
 		</p>
