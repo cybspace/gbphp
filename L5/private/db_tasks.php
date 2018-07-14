@@ -32,7 +32,7 @@ function manage_connection ($close = false) {
 
 function check_if_file_exist_by_attr ($attr_value, $table, $attr) {
     $conn = manage_connection();
-    $select = "SELECT * FROM {$table} WHERE {$attr} = '{$attr_value}'";
+    $select = "SELECT * FROM {$table} WHERE {$attr} = '{$attr_value}';";
     $result = mysqli_query($conn, $select);
     $result_arr = mysqli_fetch_all($result);
 
@@ -44,16 +44,65 @@ function insert_file_props_into_db ($file_props_arr) {
     $is_exist = check_if_file_exist_by_attr($file_props_arr['url'], 't_site_resources', 'url');
     if (!$is_exist) {
         $insert = "INSERT INTO t_site_resources (url, thumbnail_url) 
-                   VALUES ('{$file_props_arr['url']}', '{$file_props_arr['thumbnail_url']}')";
+                   VALUES ('{$file_props_arr['url']}', '{$file_props_arr['thumbnail_url']}');";
     };
     
     $result = mysqli_query($conn, $insert);
     $id_resource = mysqli_insert_id($conn);
-    $insert = "INSERT INTO t_site_images (id_resource, img_name) 
-               VALUES ({$id_resource}, '{$file_props_arr['file_name']}')";
-    $result = mysqli_query($conn, $insert);
-    $id_resource = mysqli_insert_id($conn);
+    
+    if ($id_resource !== 0) {
+        $insert = "INSERT INTO t_site_images (id_resource, img_name) 
+                    VALUES ({$id_resource}, '{$file_props_arr['file_name']}');";
+        $result = mysqli_query($conn, $insert);
+        $id_resource = mysqli_insert_id($conn);
+    };
 
-    return !is_null($id_resource) ? true : false;
+    return $id_resource !== 0 ? true : false;
 
+};
+
+function select_all_file_props_from_db () {
+    $conn = manage_connection();
+    $file_props_arr = null;
+    $select = "SELECT img_name as file_name, url, thumbnail_url, img_views as views
+                FROM gbphp_db.t_site_images img
+                JOIN gbphp_db.t_site_resources url ON img.id_resource = url.id
+                ORDER BY img_views DESC;";
+    
+    $result = mysqli_query($conn, $select);
+    $file_props_arr = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    return $file_props_arr;
+};
+
+function select_single_file_props_by_attr ($attr_name, $attr_value) {
+    $conn = manage_connection();
+    $file_props_arr = null;
+    $select = "SELECT img_name as file_name, url, thumbnail_url, img_views as views
+                FROM gbphp_db.t_site_images img
+                JOIN gbphp_db.t_site_resources url ON img.id_resource = url.id
+                WHERE {$attr_name} = '{$attr_value}';";
+    $result = mysqli_query($conn, $select);
+    $file_props_arr = mysqli_fetch_assoc($result);
+
+    return $file_props_arr;
+};
+
+function increase_img_view_count_by_attr ($attr_name, $attr_value) {
+    $conn = manage_connection();
+    $file_props_arr = null;
+    $select = "SELECT img_views
+                FROM gbphp_db.t_site_images img
+                WHERE {$attr_name} = '{$attr_value}';";
+    
+    $result = mysqli_query($conn, $select);
+    $row_arr = mysqli_fetch_assoc($result);
+    $views = $row_arr['img_views'] + 1;
+
+    $update = "UPDATE gbphp_db.t_site_images 
+                SET img_views = {$views}
+                WHERE {$attr_name} = '{$attr_value}';";
+    $result = mysqli_query($conn, $update);
+
+    return $views;
 };

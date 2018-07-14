@@ -59,14 +59,27 @@ function render_images_from_folder ($img_thumbnails_path, $img_originals_path) {
 
   foreach ($img_thumbnails_arr as $k => $v) {
     if (!is_array($v)) {
-      $output .= render_image_by_path($img_thumbnails_path.$v, $img_originals_path.$v);
+      $file_props_arr = make_file_props_arr ($v, $img_originals_path.$v, $img_thumbnails_path.$v);
+      $output .= render_image_from_file_props ($file_props_arr);
     };
   };
 
   return $output;
 };
 
-function render_image_by_path ($img_thumbnail_path, $img_original_path) {
-  $output = '<a href="'.$img_original_path.'" target="_blank"><img src="'.$img_thumbnail_path.'"></a>';
+function render_image_from_file_props ($file_props_arr, $show_full_img = false) {
+  $img_name = $file_props_arr['file_name'];
+  $img_original_path = $file_props_arr['url'];
+  $img_thumbnail_path = $show_full_img ? $file_props_arr['url'] : $file_props_arr['thumbnail_url'];
+  $view_count = isset($file_props_arr['views']) ? $file_props_arr['views'] : 0;
+
+  $output = '<a href="'.$img_original_path.'" target="_blank"><img src="'.$img_thumbnail_path.'" '.($show_full_img ? 'style="width: 100%; height: auto;"' : '').'></a>';
+  return $output;
+};
+
+function render_image_select_option_from_file_props ($file_props_arr) {
+  $img_name = $file_props_arr['file_name'];
+
+  $output = '<option value=' . $img_name . '>' . $img_name . '</option>';
   return $output;
 };

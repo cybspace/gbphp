@@ -40,7 +40,7 @@
 						$is_resized = img_resize($src, $dest, $IMG_THUMBNAILS_WIDTH, $IMG_THUMBNAILS_WIDTH);
 						
 						$message =  $is_uploaded && $is_resized ? 'Загрузка прошла успешно!' : 'Загрузка не удалась!';
-						render_image_by_path($img_thumbnail_path, $img_original_path);
+						render_image_from_file_props($img_thumbnail_path, $img_original_path);
 					} else {
 						$message = "Загрузка не удалась: недопустимы формат или размер!<br>" . $warning_message;
 					};

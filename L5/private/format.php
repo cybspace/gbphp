@@ -6,13 +6,15 @@ function make_file_props_arr (
     $file_name, 
     $file_url, 
     $file_thumbnail_url = null, 
-    $file_alt_url = null
+    $file_alt_url = null,
+    $views = 0
     ) {
         return [
             'file_name' => $file_name,
             'url' => $file_url,
             'thumbnail_url' => $file_thumbnail_url,
-            'alt_url' => $file_alt_url
+            'alt_url' => $file_alt_url,
+            'views' => 0
         ];
 
 };

@@ -83,6 +83,22 @@ function get_dir_content ($dir, $only_files = false) {
     return $out_arr;
   };
 
+function get_image_select_list ($file_props_arr) {
+    $image_select_list = '';
+    $file_props_arr = select_all_file_props_from_db();
+    $is_not_empty = count($file_props_arr) > 0 ? true : false;
+
+    if (isset($file_props_arr[0]) && $is_not_empty) {
+        foreach ($file_props_arr as $k => $v) {
+            $image_select_list .= render_image_select_option_from_file_props($v);
+        };
+    } else if ($is_not_empty) {
+        $image_select_list .= render_image_select_option_from_file_props($file_props_arr);
+    };    
+
+    return $image_select_list;
+};
+
 function do_save_image ($form_name) {
     global $IMG_THUMBNAILS_WIDTH;
     global $WWWROOT_DIR;
@@ -115,4 +131,21 @@ function do_save_image ($form_name) {
     };
 
     return $message;
+};
+
+
+function do_load_images () {
+    $gallery = '';
+    $file_props_arr = select_all_file_props_from_db();
+    $is_not_empty = count($file_props_arr) > 0 ? true : false;
+
+    if (isset($file_props_arr[0]) && $is_not_empty) {
+        foreach ($file_props_arr as $k => $v) {
+            $gallery .= render_image_from_file_props($v);
+        };
+    } else if ($is_not_empty) {
+        $gallery .= render_image_from_file_props($file_props_arr);
+    };    
+
+    return $gallery;
 };

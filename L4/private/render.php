@@ -196,13 +196,13 @@ function render_images_from_folder ($img_thumbnails_path, $img_originals_path) {
 
   foreach ($img_thumbnails_arr as $k => $v) {
     if (!is_array($v)) {
-      $output .= render_image_by_path($img_thumbnails_path.$v, $img_originals_path.$v);
+      $output .= render_image_from_file_props($img_thumbnails_path.$v, $img_originals_path.$v);
     };
   };
 
   return $output;
 };
 
-function render_image_by_path ($img_thumbnail_path, $img_original_path) {
+function render_image_from_file_props ($img_thumbnail_path, $img_original_path) {
   return '<a href="'.$img_original_path.'" target="_blank"><img src="'.$img_thumbnail_path.'"></a>';
 };

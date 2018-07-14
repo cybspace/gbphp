@@ -1,8 +1,8 @@
 <?php
 	include_once 'dependencies.php';
 	
-	$header = 'Задание 2';
-	$task = '*При загрузке изображения на сервер должна создаваться его уменьшенная копия, а на странице index.php должны выводиться именно копии. На реальных сайтах это активно используется для экономии трафика. При клике на уменьшенное изображение в браузере в новой вкладке должен открываться оригинал изображения. Функция изменения размера картинок дана в исходниках. Вам необходимо суметь встроить ее в систему.';
+	$header = 'Просмотр фото';
+	$task = 'Просмотр конкретной фотографии (изображение оригинального размера) по ее ID в базе данных.';
 ?>
 
 <html>
@@ -13,11 +13,23 @@
 		<h1><?php echo $header?></h1>
 		<p><?php echo $task?></p>
 		<h1>Результат</h1>
-		<p>
-			<?php
+		<?php
+			$file_props_arr = select_all_file_props_from_db ();
+			$image_list = get_image_select_list ($file_props_arr);
+
+			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+				$image_name = $_POST['image_selector'];
+				$image_props_arr = select_single_file_props_by_attr('img_name', $image_name);
+				$views = increase_img_view_count_by_attr('img_name', $image_name);
+				$image = [
+					'image' => render_image_from_file_props($image_props_arr, true),
+					'views' => $views
+				];
 				
-			?>
-		</p>
+			};
+
+			include $TEMPLATES_DIR . 'photo_view.php';
+		?>
 		
 	</body>
 </html>
