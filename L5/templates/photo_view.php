@@ -1,5 +1,5 @@
 <div>
-    <form action="" enctype="multipart/form-data" method="post">
+    <form action="" enctype="multipart/form-data" method="get">
         <select name="image_selector">
           <?=$image_list?>
         </select>
