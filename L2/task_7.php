@@ -15,28 +15,17 @@
 		<h1>Результат</h1>
 		<p>
 			<?php
-				function formatMinutes ($min) {
-                    $output = 'минут';
+				function format_time ($num, $type) {
+                    //$type: h - часы
+                    //       m - минуты
+                    $is_minutes = $type === 'm';
+                    $output = $is_minutes ? 'минут' : 'часов';
     
                     if ($min % 10 === 1 && $min !== 11) {
-                        $output .= 'a';
+                        $is_minutes ? $output .= 'a' : $output = 'час';
                     } else if ($min % 10 > 1 && $min % 10 < 5) {
                         if ($min < 12 || $min > 14) {
-                            $output .= 'ы';
-                        };
-                    };
-                    
-                    return $output;
-                };
-            
-                 function formatHours ($min) {
-                    $output = 'часов';
-    
-                    if ($min % 10 === 1 && $min !== 11) {
-                        $output = 'час';
-                    } else if ($min % 10 > 1 && $min % 10 < 5) {
-                        if ($min < 12 || $min > 14) {
-                            $output = 'часа';
+                            $is_minutes ? $output .= 'ы' : $output = 'часа';
                         };
                     };
                     
@@ -48,7 +37,7 @@
                     'm' => (int)date("s")
                                ];
                 
-                echo $currentTime['h'] . ' ' . formatHours($currentTime['h']) . ' ' . $currentTime['m'] . ' ' . formatMinutes($currentTime['m']);
+                echo $currentTime['h'] . ' ' . format_time($currentTime['h'], 'h') . ' ' . $currentTime['m'] . ' ' . format_time($currentTime['m'], 'm');
                     
 			?>
 		</p>

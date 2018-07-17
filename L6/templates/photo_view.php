@@ -3,7 +3,7 @@
         <select name="image_selector">
           <?=$image_list?>
         </select>
-        <input type="submit">
+        <input type="submit" value="Выбрать" />
     </form>
 </div>
 <div class="single_img" style="width: 300px;">

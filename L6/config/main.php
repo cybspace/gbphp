@@ -24,7 +24,6 @@
         'passw' => '1q2we34r',
         'db' => 'gbphp_db'
     ];
-    $CURRENT_CONNECTION = null;
 
 //DB TABLES
     

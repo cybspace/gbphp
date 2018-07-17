@@ -121,7 +121,7 @@ function do_save_image ($form_name) {
             $file_props = make_file_props_arr($file_name, $img_original_path, $img_thumbnail_path);
             $is_uploaded = move_uploaded_file($file_tmp_name, $src);
             $is_resized = img_resize($src, $dest, $IMG_THUMBNAILS_WIDTH, $IMG_THUMBNAILS_WIDTH);
-            $is_saved = insert_file_props_into_db($file_props);
+            $is_saved = save_file_props_in_db($file_props);
 
             $message =  $is_uploaded && $is_resized && $is_saved ? 'Загрузка прошла успешно!' : 'Загрузка не удалась!';
         } else {

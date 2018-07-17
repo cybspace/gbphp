@@ -30,7 +30,7 @@ function manage_connection ($close = false) {
     return $CURRENT_CONNECTION;
 };
 
-function check_if_file_exist_by_attr ($attr_value, $table, $attr) {
+function check_if_row_exists_by_attr ($attr_value, $table, $attr) {
     $conn = manage_connection();
     $select = "SELECT * FROM {$table} WHERE {$attr} = '{$attr_value}';";
     $result = mysqli_query($conn, $select);
@@ -39,12 +39,14 @@ function check_if_file_exist_by_attr ($attr_value, $table, $attr) {
     return (count($result_arr) > 0);
 };
 
-function insert_file_props_into_db ($file_props_arr) {
+function save_file_props_in_db ($file_props_arr) {
     $conn = manage_connection();
-    $is_exist = check_if_file_exist_by_attr($file_props_arr['url'], 't_site_resources', 'url');
+    $is_exist = check_if_row_exists_by_attr($file_props_arr['url'], 't_site_resources', 'url');
     if (!$is_exist) {
         $insert = "INSERT INTO t_site_resources (url, thumbnail_url) 
                    VALUES ('{$file_props_arr['url']}', '{$file_props_arr['thumbnail_url']}');";
+    } else {
+        return false;
     };
     
     $result = mysqli_query($conn, $insert);
