@@ -148,3 +148,47 @@ function select_all_comments_from_db_by_id_subj ($id_subject) {
 
     return $comments;
 };
+
+function select_all_products_from_db () {
+    $conn = manage_connection();
+    $products = null;
+    $select = "SELECT 
+              	  p.id, 
+                  p.product_name as name, 
+                  p.product_short_desc as short_desc, 
+                  p.product_full_desc as full_desc,
+                  p.product_price as price,
+                  res.url,
+                  res.thumbnail_url
+              FROM gbphp_db.t_site_product p
+              JOIN gbphp_db.t_product_images pi on pi.id_product = p.id
+              JOIN gbphp_db.t_site_images img on img.id = pi.id_image
+              JOIN gbphp_db.t_site_resources res on res.id = img.id_resource;";
+    
+    $result = mysqli_query($conn, $select);
+    $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    return $products;
+};
+
+function select_single_product_by_attr ($attr_name, $attr_value) {
+    $conn = manage_connection();
+    $product = null;
+    $select = "SELECT 
+                  p.id, 
+                  p.product_name as name, 
+                  p.product_short_desc as short_desc, 
+                  p.product_full_desc as full_desc,
+                  p.product_price as price,
+                  res.url,
+                  res.thumbnail_url
+                FROM gbphp_db.t_site_product p
+                JOIN gbphp_db.t_product_images pi on pi.id_product = p.id
+                JOIN gbphp_db.t_site_images img on img.id = pi.id_image
+                JOIN gbphp_db.t_site_resources res on res.id = img.id_resource
+                WHERE {$attr_name} = '{$attr_value}';";
+    $result = mysqli_query($conn, $select);
+    $product = mysqli_fetch_assoc($result);
+
+    return $product;
+};

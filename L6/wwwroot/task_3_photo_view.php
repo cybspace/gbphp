@@ -3,18 +3,10 @@
 	
 	$header = 'Просмотр фото';
 	$task = 'Просмотр конкретной фотографии (изображение оригинального размера) по ее ID в базе данных.';
-?>
 
-<html>
-	<head>
-		
-	</head>
-	<body>
-		<h1><?php echo $header?></h1>
-		<p><?php echo $task?></p>
-		<h1>Результат</h1>
-		<?php
-			$file_props_arr = select_all_file_props_from_db ();
+	include $TEMPLATES_DIR . 'task_template.php';
+
+	$file_props_arr = select_all_file_props_from_db ();
 			$image_list = get_image_select_list ($file_props_arr);
 			$comments_message = ''; //сообщения для формы ввода отзывов
 			$comments_arr = null;
@@ -62,7 +54,4 @@
 
 			include $TEMPLATES_DIR . 'photo_view.php';
 			include $TEMPLATES_DIR . 'comment_form.php';
-		?>
-		
-	</body>
-</html>
+?>

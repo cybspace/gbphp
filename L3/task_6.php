@@ -30,15 +30,9 @@
 							if (is_string($key)) {
 								$output .= make_li_element($key);
 								
-								if(is_array($value)) {
-									$output .= '<ul>';
-									$output .= make_inner_list_func($value);
-									$output .= '</ul>';
-								} else {
-									$output .= '<ul>';
-									$output .= make_li_element($value);
-									$output .= '</ul>';
-								};								
+								$output .= '<ul>';
+								is_array($value) ? $output .= make_inner_list_func($value) : $output .= make_li_element($value);								
+								$output .= '</ul>';					
 							} else {
 								$output .= make_li_element($value);
 							};
